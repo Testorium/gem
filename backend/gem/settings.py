@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "apps.users.apps.UsersConfig",
     # Third party
     "rest_framework",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
