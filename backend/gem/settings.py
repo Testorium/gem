@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,8 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #   Local
-    "apps.authentication.apps.AuthenticationConfig",
-    "apps.users.apps.UsersConfig",
+    "apps.authentication",
+    "apps.users",
+    "apps.categories",
+    "apps.ads",
+    "apps.offers",
     # Third party
     "rest_framework",
     "drf_yasg",
@@ -139,3 +143,7 @@ REST_FRAMEWORK = {
 
 # Custom User Model
 AUTH_USER_MODEL = "users.User"
+
+# MEDIA
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
