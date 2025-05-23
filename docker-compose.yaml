@@ -1,0 +1,45 @@
+services:
+  
+  backend:
+    build:
+      dockerfile: ./docker/backend/Dockerfile
+      context: ./
+    env_file:
+      - path: ./backend/.env
+        required: true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      pg:
+        condition: service_healthy
+    networks:
+      - gem-net
+
+  pg:
+    image: postgres
+    user: postgres
+    env_file:
+      - path: ./backend/.env
+        required: true
+    environment:
+      - TZ=Asia/Almaty
+    ports:
+     - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+    networks:
+      - gem-net
+
+volumes:
+  pgdata:
+
+networks:
+  gem-net:
